@@ -1,5 +1,6 @@
 package com.example.roomdatabase
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -10,6 +11,8 @@ import kotlinx.coroutines.launch
 class ProductRepository(private val productDao: ProductDao) {
   val searchResults = MutableLiveData<List<Product>>()
   private val coroutineScope = CoroutineScope(Dispatchers.Main)
+
+  val allProducts : LiveData<List<Product>> = productDao.getAllProducts()
 
   fun insertProduct(newProduct: Product) {
     coroutineScope.launch(Dispatchers.IO) {
